@@ -18,6 +18,8 @@ class Status(models.Model):
     def __str__(self):
         return "{0} {1}".format(self.numero, self.libelle)
     
+
+
 """
 Produit : nom, code, etc.
 """
@@ -28,13 +30,33 @@ class Product(models.Model):
 
     name          = models.CharField(max_length=100)
     code          = models.CharField(max_length=10, null=True, blank=True, unique=True)
-    price_ht      = models.DecimalField(max_digits=8, decimal_places=2,  null=True, blank=True, verbose_name="Prix unitaire HT")
-    price_ttc     = models.DecimalField(max_digits=8, decimal_places=2,  null=True, blank=True, verbose_name="Prix unitaire TTC")
     status        = models.SmallIntegerField(choices=PRODUCT_STATUS, default=0)
     date_creation =  models.DateTimeField(blank=True, verbose_name="Date création") 
     
     def __str__(self):
         return "{0} {1}".format(self.name, self.code)
+    
+
+class Fournisseur(models.Model):
+    
+    class Meta:
+        verbose_name = "Fournisseur"
+    
+    name        = models.CharField(max_length=100)
+    def __str__(self):
+        return self.name
+    
+
+class ProductFournisseur(models.Model):
+
+    class Meta:
+        verbose_name = "ProduitFournisseur"
+
+    product       = models.ForeignKey('Product', on_delete=models.CASCADE)
+    fournisseur   = models.ForeignKey('Fournisseur', on_delete=models.CASCADE)
+    price_ht      = models.DecimalField(max_digits=8, decimal_places=2,  null=True, blank=True, verbose_name="Prix unitaire HT")
+    price_ttc     = models.DecimalField(max_digits=8, decimal_places=2,  null=True, blank=True, verbose_name="Prix unitaire TTC")
+    
 
 """
     Déclinaison de produit déterminée par des attributs comme la couleur, etc.
