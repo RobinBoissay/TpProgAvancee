@@ -1,0 +1,49 @@
+{% extends 'monapp/base.html' %}
+{% block title %}
+    Mon application DJANGO
+{% endblock %}
+{% block menu %}
+    <h1>    {{ titremenu }}    </h1>
+{% endblock %}
+{% block contenu %}
+    <table class="table">
+
+    <a href="{% url 'productItem-add' %}">Créer un nouveau produit</a>
+    <thead>
+        <th>Nom</th>
+        <th>Code</th>
+        <th>Color</th>
+
+        <th>Modifier</th>
+        <th>Delete</th>
+    </thead>
+    <tbody>
+    {% for prdct in products %}
+    <tr>
+        
+        <td><a href="{% url 'productItem-detail' prdct.id %}">{{ prdct.name }}</a></td>
+        <td>{{ prdct.code }} </td>
+        <td>{{ prdct.color }} </td>
+        <td>
+            <a href="{% url 'productItem-update' prdct.id %}">modifier</a>
+        </td>
+        <td>
+            <a href="{% url 'productItem-delete' prdct.id %}">delete</a>
+        </td>
+
+    </tr>-
+    {% endfor %}
+    </tbody>
+    </table>
+    <p>
+        J'ai
+        {% if products|length < 5 %}
+        peu de
+        {% elif products|length < 10 %}
+        quelques
+        {% else %}
+        beaucoup de
+        {% endif %}
+        produits préférés.
+    </p>
+{% endblock %}
