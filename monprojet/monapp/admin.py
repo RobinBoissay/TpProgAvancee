@@ -33,11 +33,11 @@ set_product_offline.short_description = "Mettre hors ligne"
 
 class ProductAdmin(admin.ModelAdmin):
     model = Product
-    list_display = ["id", "name", "price_ht", "price_ttc","tax","date_creation",'status']
-    list_editable = ["name", "price_ht", "price_ttc","date_creation"]
-    def tax(self, instance):
-        return (instance.price_ttc / instance.price_ht)-1
-    tax.short_description = "Taxes (%)"
+    list_display = ["code", "name", "date_creation",'status']
+    list_editable = ["name","date_creation", "status"]
+    # def tax(self, instance):
+    #     return (instance.price_ttc / instance.price_ht)-1
+    # tax.short_description = "Taxes (%)"
     actions = [set_product_online, set_product_offline]
 
 

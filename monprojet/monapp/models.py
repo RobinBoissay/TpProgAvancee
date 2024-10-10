@@ -6,7 +6,11 @@ PRODUCT_STATUS = (
     (1, 'Online'),
     (2, 'Out of stock')              
 )
-
+COMMANDE_STATUS = (
+    (0, "Preaparing"),
+    (1, "Done"),
+    (2, "Received")
+)
 # Create your models here.
 """
     Status : numero, libelle
@@ -57,6 +61,18 @@ class ProductFournisseur(models.Model):
     price_ht      = models.DecimalField(max_digits=8, decimal_places=2,  null=True, blank=True, verbose_name="Prix unitaire HT")
     price_ttc     = models.DecimalField(max_digits=8, decimal_places=2,  null=True, blank=True, verbose_name="Prix unitaire TTC")
     
+class Commande(models.Model):
+
+    class Meta:
+        verbose_name = "Commande"
+
+    commandeName = models.CharField(max_length=100)
+    produitFournisseur = models.ForeignKey('ProductFournisseur', on_delete=models.CASCADE)
+    quantity = models.IntegerField()
+    etatCommande = models.SmallIntegerField(choices=COMMANDE_STATUS, default=0)
+    
+    def __str__(self):
+        return self.commandeName
 
 """
     Déclinaison de produit déterminée par des attributs comme la couleur, etc.
