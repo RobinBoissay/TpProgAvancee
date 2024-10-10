@@ -47,7 +47,7 @@ class ProductListView(ListView):
     context_object_name = "products"
 
     def get_queryset(self ) :
-        return Product.objects.order_by("price_ttc")
+        return Product.objects.order_by("date_creation")
     
     def get_context_data(self, **kwargs):
         context = super(ProductListView, self).get_context_data(**kwargs)
@@ -345,3 +345,53 @@ class FournisseurDeleteView(DeleteView):
     model = Fournisseur
     template_name = "monapp/delete_fournisseur.html"
     success_url = reverse_lazy('fournisseur-list')
+
+
+
+
+
+
+class ProductFournisseurCreateView(CreateView):
+    model = ProductFournisseur
+    form_class= ProductFournisseurForm
+    template_name = "monapp/new_productFournisseur.html"
+    def form_valid(self, form: BaseModelForm) -> HttpResponse:
+        product = form.save()
+        return redirect('productFournisseur-detail', product.id)
+    
+
+class ProductFournisseurDetailView(DetailView):
+    model = ProductFournisseur
+    template_name = "monapp/detail_productFournisseur.html"
+    context_object_name = "fournisseur"
+    def get_context_data(self, **kwargs):
+        context = super(ProductFournisseurDetailView, self).get_context_data(**kwargs)
+        context['titremenu'] = "Détail Produit Fournisseur"
+        return context
+    
+
+class ProductFournisseurListView(ListView):
+    model = ProductFournisseur
+    template_name = "monapp/list_productFournisseur.html"
+    context_object_name = "fournisseur"
+    def get_queryset(self ):
+        return ProductFournisseur.objects.all()
+    def get_context_data(self, **kwargs):
+        context = super(ProductFournisseurListView, self).get_context_data(**kwargs)
+        context['titremenu'] = "Liste des produit fournisseurs"
+        return context
+    
+
+class ProductFournisseurUpdateView(UpdateView):
+    model = ProductFournisseur
+    form_class=ProductFournisseurForm
+    template_name = "monapp/update_productFournisseur.html"
+    def form_valid(self, form: BaseModelForm) -> HttpResponse:
+        product = form.save()
+        return redirect('productFournisseur-detail', product.id)
+    
+
+class ProductFournisseurDeleteView(DeleteView):
+    model = ProductFournisseur
+    template_name = "monapp/delete_productFournisseur.html"
+    success_url = reverse_lazy('productFournisseur-list')

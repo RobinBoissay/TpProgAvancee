@@ -1,6 +1,6 @@
 from django import forms
 from django.shortcuts import render
-from monapp.models import Product, Status, ProductItem, ProductAttribute, Fournisseur
+from monapp.models import *
 
 
 class ContactUsForm(forms.Form):
@@ -31,4 +31,9 @@ class ProductAttributeForm(forms.ModelForm):
 class FournisseurForm(forms.ModelForm):
     class Meta:
         model = Fournisseur
+        fields = '__all__'
+
+class ProductFournisseurForm(forms.ModelForm):
+    class Meta:
+        model = ProductFournisseur
         fields = '__all__'
