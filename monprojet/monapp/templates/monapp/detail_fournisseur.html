@@ -1,0 +1,11 @@
+{% extends 'monapp/base.html' %}
+{% block title %}
+Mon application DJANGO
+{% endblock %}
+{% block menu %}
+<h1>{{titremenu}}</h1>
+{% endblock %}
+{% block contenu %}
+<h2>Nom: {{ fournisseur.name }}</h2>
+<a href="{% url 'fournisseur-list' %}">Retour à la liste des fournisseur</a>
+{% endblock %}

@@ -27,4 +27,11 @@ urlpatterns = [
     path("productAttribute/list",views.ProductAttributeListView.as_view(),name="productAttribute-list"),
     path("productAttribute/add/",views.ProductAttributeCreateView.as_view(), name="productAttribute-add"),
     path("productAttribute/<pk>/delete/",views.ProductAttributeDeleteView.as_view(), name="productAttribute-delete"),
+
+    path("fournisseur/add/",views.FournisseurCreateView.as_view(), name="fournisseur-add"),
+    path("fournisseur/<int:pk>" ,views.FournisseurDetailView.as_view(), name="fournisseur-detail"),
+    path("fournisseur/list",views.FournisseurListView.as_view(),name="fournisseur-list"),
+    path("fournisseur/<pk>/delete/",views.FournisseurDeleteView.as_view(), name="fournisseur-delete"),
+    path("fournisseur/<int:pk>/update/",views.FournisseurUpdateView.as_view(), name="fournisseur-update"),
+
     ]

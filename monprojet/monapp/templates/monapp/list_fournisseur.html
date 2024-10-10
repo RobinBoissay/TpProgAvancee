@@ -1,0 +1,36 @@
+{% extends 'monapp/base.html' %}
+{% block title %}
+    Mon application DJANGO
+{% endblock %}
+{% block menu %}
+    <h1>    {{ titremenu }}    </h1>
+{% endblock %}
+{% block contenu %}
+    <table class="table">
+
+    <a href="{% url 'fournisseur-add' %}">Créer un nouveau fournisseur</a>
+    <thead>
+        <th>Nom</th>
+
+        <th>Modifier</th>
+        <th>Delete</th>
+    </thead>
+    <tbody>
+    {% for prdct in fournisseur %}
+    <tr>
+        
+        <td><a href="{% url 'fournisseur-detail' prdct.id %}">{{ prdct.name }}</a></td>
+
+        <td>
+            <a href="{% url 'fournisseur-update' prdct.id %}">modifier</a>
+        </td>
+        <td>
+            <a href="{% url 'fournisseur-delete' prdct.id %}">delete</a>
+        </td>
+
+    </tr>-
+    {% endfor %}
+    </tbody>
+    </table>
+
+{% endblock %}
