@@ -14,8 +14,8 @@ from django.core.mail import send_mail
 
 from django.shortcuts import redirect
 
-from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import user_passes_test
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
@@ -395,3 +395,54 @@ class ProductFournisseurDeleteView(DeleteView):
     model = ProductFournisseur
     template_name = "monapp/delete_productFournisseur.html"
     success_url = reverse_lazy('productFournisseur-list')
+
+
+
+
+
+
+class CommandeCreateView(CreateView):
+    model = Commande
+    form_class= CommandeForm
+    template_name = "monapp/new_commande.html"
+    def form_valid(self, form: BaseModelForm) -> HttpResponse:
+        product = form.save()
+        return redirect('commande-detail', product.id)
+    
+
+class CommandeDetailView(DetailView):
+    model = Commande
+    template_name = "monapp/detail_commande.html"
+    context_object_name = "commande"
+    def get_context_data(self, **kwargs):
+        context = super(CommandeDetailView, self).get_context_data(**kwargs)
+        context['titremenu'] = "Détail Commande"
+        return context
+    
+
+
+class CommandeUpdateView(UpdateView):
+    model = Commande
+    form_class=CommandeForm
+    template_name = "monapp/update_commande.html"
+    def form_valid(self, form: BaseModelForm) -> HttpResponse:
+        product = form.save()
+        return redirect('commande-detail', product.id)
+    
+
+class CommandeDeleteView(DeleteView):
+    model = Commande
+    template_name = "monapp/delete_commande.html"
+    success_url = reverse_lazy('commande-list')
+
+
+class CommandeListView(ListView):
+    model = Commande
+    template_name = "monapp/list_commande.html"
+    context_object_name = "commande"
+    def get_queryset(self ):
+        return Commande.objects.all()
+    def get_context_data(self, **kwargs):
+        context = super(CommandeListView, self).get_context_data(**kwargs)
+        context['titremenu'] = "Liste des commandes"
+        return context

@@ -1,0 +1,37 @@
+{% extends 'monapp/base.html' %}
+{% block title %}
+    Mon application DJANGO
+{% endblock %}
+{% block menu %}
+    <h1>    {{ titremenu }}    </h1>
+{% endblock %}
+{% block contenu %}
+    <table class="table">
+
+    <a href="{% url 'commande-add' %}">Créer une nouvelle commande</a>
+    <thead>
+        <th>Nom</th>
+        <th>États commande</th>
+
+        <th>Modifier</th>
+        <th>Delete</th>
+    </thead>
+    <tbody>
+    {% for prdct in commande %}
+    <tr>
+        
+        <td><a href="{% url 'commande-detail' prdct.id %}">{{ prdct.commandeName }}</a></td>
+        <td><p>{{ prdct.etatCommande }}</p></td>
+        <td>
+            <a href="{% url 'commande-update' prdct.id %}">modifier</a>
+        </td>
+        <td>
+            <a href="{% url 'commande-delete' prdct.id %}">delete</a>
+        </td>
+
+    </tr>-
+    {% endfor %}
+    </tbody>
+    </table>
+
+{% endblock %}

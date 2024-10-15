@@ -1,0 +1,17 @@
+{% extends 'monapp/base.html' %}
+{% block title %}
+Mon application DJANGO
+{% endblock %}
+{% block menu %}
+<h1>{{titremenu}}</h1>
+{% endblock %}
+{% block contenu %}
+<h2>Nom: {{ commande.commandeName }}</h2>
+<ul>
+    <li>Nom du produit: {{ commande.produitFournisseur.product.name }}</li>
+    <li>Quantité commandé: {{ commande.quantity }}</li>
+    <li>État de la commande: {{ commande.etatCommande }}</li>
+
+</ul>
+<a href="{% url 'commande-list' %}">Retour à la liste des commandes</a>
+{% endblock %}

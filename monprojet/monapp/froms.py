@@ -37,3 +37,8 @@ class ProductFournisseurForm(forms.ModelForm):
     class Meta:
         model = ProductFournisseur
         fields = '__all__'
+
+class CommandeForm(forms.ModelForm):
+    class Meta:
+        model = Commande
+        fields = '__all__'

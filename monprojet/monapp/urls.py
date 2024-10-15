@@ -40,4 +40,10 @@ urlpatterns = [
     path("productFournisseur/list",views.ProductFournisseurListView.as_view(),name="productFournisseur-list"),
     path("productFournisseur/<pk>/delete/",views.ProductFournisseurDeleteView.as_view(), name="productFournisseur-delete"),
     path("productFournisseur/<int:pk>/update/",views.ProductFournisseurUpdateView.as_view(), name="productFournisseur-update"),
+
+    path("commande/add/",views.CommandeCreateView.as_view(), name="commande-add"),
+    path("commande/<int:pk>" ,views.CommandeDetailView.as_view(), name="commande-detail"),
+    path("commande/list",views.CommandeListView.as_view(),name="commande-list"),
+    path("commande/<pk>/delete/",views.CommandeDeleteView.as_view(), name="commande-delete"),
+    path("commande/<int:pk>/update/",views.CommandeUpdateView.as_view(), name="commande-update"),
     ]
