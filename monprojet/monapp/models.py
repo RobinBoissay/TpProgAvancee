@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils import timezone
-
+from django.core.validators import MinValueValidator
 PRODUCT_STATUS = (
     (0, 'Offline'),
     (1, 'Online'),
@@ -21,8 +21,6 @@ class Status(models.Model):
           
     def __str__(self):
         return "{0} {1}".format(self.numero, self.libelle)
-    
-
 
 """
 Produit : nom, code, etc.
@@ -35,8 +33,10 @@ class Product(models.Model):
     name          = models.CharField(max_length=100)
     code          = models.CharField(max_length=10, null=True, blank=True, unique=True)
     status        = models.SmallIntegerField(choices=PRODUCT_STATUS, default=0)
-    date_creation =  models.DateTimeField(blank=True, verbose_name="Date création") 
-    
+    date_creation = models.DateTimeField(blank=True, verbose_name="Date création") 
+    stock         = models.IntegerField(default= 0 ,validators=[MinValueValidator(0)])
+
+
     def __str__(self):
         return "{0} {1}".format(self.name, self.code)
     
@@ -60,6 +60,9 @@ class ProductFournisseur(models.Model):
     fournisseur   = models.ForeignKey('Fournisseur', on_delete=models.CASCADE)
     price_ht      = models.DecimalField(max_digits=8, decimal_places=2,  null=True, blank=True, verbose_name="Prix unitaire HT")
     price_ttc     = models.DecimalField(max_digits=8, decimal_places=2,  null=True, blank=True, verbose_name="Prix unitaire TTC")
+
+    def __str__(self):
+        return self.product.name + " : " + self.fournisseur.name + " ;Prix ttc = " + str(self.price_ttc) + " ;Prix ht = "+str(self.price_ht)
     
 class Commande(models.Model):
 
@@ -70,10 +73,24 @@ class Commande(models.Model):
     produitFournisseur = models.ForeignKey('ProductFournisseur', on_delete=models.CASCADE)
     quantity = models.IntegerField()
     etatCommande = models.SmallIntegerField(choices=COMMANDE_STATUS, default=0)
-    
-    def __str__(self):
-        return self.commandeName
 
+    def save(self, *args, **kwargs):
+        # Vérification de l'état précédent
+        if self.pk:
+            # On récupère l'état de la commande avant la modification
+            old_etat = Commande.objects.get(pk=self.pk).etatCommande
+        else:
+            old_etat = None
+
+        super(Commande, self).save(*args, **kwargs)  # On appelle d'abord la méthode save() pour sauvegarder la commande
+
+        # Si l'état de la commande passe au troisième état (disons, etatCommande = 2)
+        if old_etat != 2 and self.etatCommande == 2:
+            # Incrémenter le stock du produit fournisseur associé
+
+            produit = self.produitFournisseur.product
+            self.produitFournisseur.product.stock += self.quantity
+            self.produitFournisseur.product.save()
 """
     Déclinaison de produit déterminée par des attributs comme la couleur, etc.
 """

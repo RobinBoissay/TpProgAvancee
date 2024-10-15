@@ -13,8 +13,8 @@
         <th>Nom</th>
         <th>États commande</th>
 
-        <th>Modifier</th>
-        <th>Delete</th>
+        <th>Action</th>
+
     </thead>
     <tbody>
     {% for prdct in commande %}
@@ -23,12 +23,10 @@
         <td><a href="{% url 'commande-detail' prdct.id %}">{{ prdct.commandeName }}</a></td>
         <td><p>{{ prdct.etatCommande }}</p></td>
         <td>
-            <a href="{% url 'commande-update' prdct.id %}">modifier</a>
+            <a href="{% url 'productAttribute-detail' prdct.id %}" class="btn btn-primary mt-2">Détails</a>
+            <a href="{% url 'commande-update' prdct.id %}" class="btn btn-warning mt-2">Modifier</a>
+            <a href="{% url 'commande-delete' prdct.id %}" class="btn btn-danger mt-2">Supprimer</a>
         </td>
-        <td>
-            <a href="{% url 'commande-delete' prdct.id %}">delete</a>
-        </td>
-
     </tr>-
     {% endfor %}
     </tbody>

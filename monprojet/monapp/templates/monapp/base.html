@@ -12,18 +12,7 @@
     </head>
     <body>
 
-        {% if user.is_authenticated %}
-            <li class="nav-item">
-            <a class="nav-link" href="{% url 'logout' %}">Déconnexion</a>
-            </li>
-        {%else%}
-            <li class="nav-item">
-            <a class="nav-link" href="{% url 'login' %}">Connexion</a>
-            </li>
-            <li class="nav-item">
-            <a class="nav-link" href="{% url 'register' %}">Inscription</a>
-            </li>
-        {%endif%}
+
         {% block nav %}
         <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
             <div class="collapse navbar-collapse" id="navbarNav">
@@ -34,9 +23,26 @@
             <li class="nav-item"></li><a class="nav-link" href="{% url 'productAttribute-list' %}">ProductAttribute</a></li>
             <li class="nav-item"></li><a class="nav-link" href="{% url 'productFournisseur-list' %}">produit Fournisseur</a></li>
             <li class="nav-item"></li><a class="nav-link" href="{% url 'fournisseur-list' %}">Fournisseur</a></li>
+            {% if user.is_superuser %}
 
+            <li class="nav-item"></li><a class="nav-link" href="{% url 'commande-list' %}">Commande</a></li>
+
+            {%endif%}
             
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+            <a class="nav-link" href="{% url 'logout' %}">Déconnexion</a>
+            </li>
+            {%else%}
+            <li class="nav-item">
+            <a class="nav-link" href="{% url 'login' %}">Connexion</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="{% url 'register' %}">Inscription</a>
+            </li>
+            {%endif%}
             </ul>
+
             </div>
             </nav >        
         {% block menu %}{% endblock %}

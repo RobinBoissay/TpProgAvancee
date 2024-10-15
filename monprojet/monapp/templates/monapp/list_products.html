@@ -12,20 +12,22 @@
     <thead>
         <th>Nom</th>
         <th>Code</th>
-        <th>Prix HT</th>
-        <th>Prix TTC</th>
+        <th>Stock</th>
         <th>Date Création</th>
         <th>Modifier</th>
         <th>Delete</th>
+        {% if user.is_superuser %}
+        <th>Commander</th>
+        {%endif%}
     </thead>
+
     <tbody>
     {% for prdct in products %}
     <tr>
         
         <td><a href="{% url 'product-detail' prdct.id %}">{{ prdct.name }}</a></td>
         <td>{{ prdct.code }} </td>
-        <td>{{ prdct.price_ht }} </td>
-        <td>{{ prdct.price_ttc }} </td>
+        <td>{{ prdct.stock }} </td>
         <td>{{ prdct.date_creation }} </td>
         <td>
             <a href="{% url 'product-update' prdct.id %}">modifier</a>
@@ -33,20 +35,15 @@
         <td>
             <a href="{% url 'product-delete' prdct.id %}">delete</a>
         </td>
+        {% if user.is_superuser %}
+        <td>
+            <a href="{% url 'commande-add' %}">Commander</a>
+        </td>
+        {%endif%}
 
-    </tr>-
+    </tr>
     {% endfor %}
     </tbody>
     </table>
-    <p>
-        J'ai
-        {% if products|length < 5 %}
-        peu de
-        {% elif products|length < 10 %}
-        quelques
-        {% else %}
-        beaucoup de
-        {% endif %}
-        produits préférés.
-    </p>
+  
 {% endblock %}
