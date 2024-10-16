@@ -8,7 +8,7 @@
 {% block contenu %}
     <table class="table">
 
-    <a href="{% url 'fournisseur-add' %}">Créer un nouveau fournisseur</a>
+    <a  class="btnCree"href="{% url 'fournisseur-add' %}">Créer un nouveau fournisseur</a>
     <thead>
         <th>Nom</th>
 
@@ -22,13 +22,13 @@
         <td><a href="{% url 'fournisseur-detail' prdct.id %}">{{ prdct.name }}</a></td>
 
         <td>
-            <a href="{% url 'fournisseur-update' prdct.id %}">modifier</a>
+            <a href="{% url 'fournisseur-update' prdct.id %}" class="btn btn-warning mt-2">modifier</a>
         </td>
         <td>
-            <a href="{% url 'fournisseur-delete' prdct.id %}">delete</a>
+            <a href="{% url 'fournisseur-delete' prdct.id %}" class="btn btn-danger mt-2">delete</a>
         </td>
 
-    </tr>-
+    </tr>
     {% endfor %}
     </tbody>
     </table>

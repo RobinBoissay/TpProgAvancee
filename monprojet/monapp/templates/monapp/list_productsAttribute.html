@@ -1,38 +1,41 @@
 {% extends 'monapp/base.html' %}
-
+{% block menu %}
+    <h1>    {{ titremenu }}    </h1>
+{% endblock %}
 {% block contenu %}
 <table class="table">
-<thead>
-<th>Nom</th>
-<th>Valeurs</th>
-<th>Position</th>
-<th>Actions</th>
-</thead>
-<tbody>
-{% for attribute in product %}
-<tr>
-<td>{{ attribute.name}}</td>
-<td>
-{% for value in attribute.productattributevalue_set.all %}
-<p>{{ value.value }}</p>
-{% empty %}
-<p>Aucune valeur</p>
-{% endfor %}
-</td>
-<td>
-{% for value in attribute.productattributevalue_set.all %}
-<p>{{ value.position }}</p>
-{% empty %}
-<p>Aucune valeur</p>
-{% endfor %}
-</td>
-<td>
-<a href="{% url 'productAttribute-detail' attribute.id %}" class="btn btn-primary mt-2">Détails</a>
-<a href="{% url 'productAttribute-update' attribute.id %}" class="btn btn-warning mt-2">Modifier</a>
-<a href="{% url 'productAttribute-delete' attribute.id %}" class="btn btn-danger mt-2">Supprimer</a>
-</td>
-</tr>
-{% endfor %}
-</tbody>
+    <a class="btnCree" href="{% url 'productAttribute-add' %}">Créer un nouvelle atribut</a>
+    <thead>
+    <th>Nom</th>
+    <th>Valeurs</th>
+    <th>Position</th>
+    <th>Actions</th>
+    </thead>
+    <tbody>
+    {% for attribute in product %}
+    <tr>
+    <td>{{ attribute.name}}</td>
+    <td>
+    {% for value in attribute.productattributevalue_set.all %}
+        <p>{{ value.value }}</p>
+        {% empty %}
+        <p>Aucune valeur</p>
+        {% endfor %}
+        </td>
+        <td>
+        {% for value in attribute.productattributevalue_set.all %}
+            <p>{{ value.position }}</p>
+            {% empty %}
+            <p>Aucune valeur</p>
+        {% endfor %}
+        </td>
+        <td>
+        <a href="{% url 'productAttribute-detail' attribute.id %}" class="btn btn-primary mt-2">Détails</a>
+        <a href="{% url 'productAttribute-update' attribute.id %}" class="btn btn-warning mt-2">Modifier</a>
+        <a href="{% url 'productAttribute-delete' attribute.id %}" class="btn btn-danger mt-2">Supprimer</a>
+        </td>
+        </tr>
+    {% endfor %}
+    </tbody>
 </table>
 {% endblock %}

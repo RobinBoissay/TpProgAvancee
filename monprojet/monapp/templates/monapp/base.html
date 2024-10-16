@@ -6,44 +6,53 @@
         <title>{% block title %}{% endblock %}</title>
 
         {% block styles %}
-            <link rel="stylesheet" href="{% static 'styles.css' %}" />
-            <link rel="stylesheet" href="{% static 'node_modules/bootstrap/dist/css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'node_modules/bootstrap/dist/css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
         {% endblock %}
     </head>
     <body>
 
 
         {% block nav %}
-        <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
-            <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-            
-            <li class="nav-item"><a class="nav-link" href="{% url 'product-list' %}">Produits</a></li>
-            <li class="nav-item"></li><a class="nav-link" href="{% url 'productItem-list' %}">ProductItem</a></li>
-            <li class="nav-item"></li><a class="nav-link" href="{% url 'productAttribute-list' %}">ProductAttribute</a></li>
-            <li class="nav-item"></li><a class="nav-link" href="{% url 'productFournisseur-list' %}">produit Fournisseur</a></li>
-            <li class="nav-item"></li><a class="nav-link" href="{% url 'fournisseur-list' %}">Fournisseur</a></li>
-            {% if user.is_superuser %}
+        <nav >
+            <ul class="navBar">
+                <li class="divLien">
+                    <ul>
+                        <li ><a  href="{% url 'product-list' %}">Produits</a></li>
+                        <li ><a  href="{% url 'productItem-list' %}">ProductItem</a></li>
+                        <li ><a  href="{% url 'productFournisseur-list' %}">produit Fournisseur</a></li>
+                        <li ><a  href="{% url 'fournisseur-list' %}">Fournisseur</a></li>
+                        <li ><a  href="{% url 'productAttribute-list' %}">ProductAttribute</a></li>
+                        {% if user.is_superuser %}
 
-            <li class="nav-item"></li><a class="nav-link" href="{% url 'commande-list' %}">Commande</a></li>
-
-            {%endif%}
+                        <li ><a  href="{% url 'commande-list' %}">Commande</a></li>
+                        {%endif%}
+                    </ul>
+                </li>
             
-            {% if user.is_authenticated %}
-            <li class="nav-item">
-            <a class="nav-link" href="{% url 'logout' %}">Déconnexion</a>
-            </li>
-            {%else%}
-            <li class="nav-item">
-            <a class="nav-link" href="{% url 'login' %}">Connexion</a>
-            </li>
-            <li class="nav-item">
-            <a class="nav-link" href="{% url 'register' %}">Inscription</a>
-            </li>
-            {%endif%}
+
+            
+            
+
+                <li class="divConnexionInscription">
+                    <ul>
+                        {% if user.is_authenticated %}
+                        <li >
+                        <a  href="{% url 'logout' %}" >Déconnexion</a>
+                        </li>
+                        {%else%}
+                        <li >
+                        <a  href="{% url 'login' %}" >Connexion</a>
+                        </li>
+                        <li >
+                        <a  href="{% url 'register' %}" >Inscription</a>
+                        </li>
+                        {%endif%}
+                    </ul>
+                </li>
+            
             </ul>
 
-            </div>
             </nav >        
         {% block menu %}{% endblock %}
         </nav >

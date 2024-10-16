@@ -8,7 +8,7 @@
 {% block contenu %}
     <table class="table">
 
-    <a href="{% url 'commande-add' %}">Créer une nouvelle commande</a>
+    <a class="btnCree" href="{% url 'commande-add' %}">Créer une nouvelle commande</a>
     <thead>
         <th>Nom</th>
         <th>États commande</th>
@@ -27,7 +27,7 @@
             <a href="{% url 'commande-update' prdct.id %}" class="btn btn-warning mt-2">Modifier</a>
             <a href="{% url 'commande-delete' prdct.id %}" class="btn btn-danger mt-2">Supprimer</a>
         </td>
-    </tr>-
+    </tr>
     {% endfor %}
     </tbody>
     </table>

@@ -8,7 +8,7 @@
 {% block contenu %}
     <table class="table">
 
-    <a href="{% url 'productItem-add' %}">Créer un nouveau produit</a>
+    <a class="btnCree" href="{% url 'productItem-add' %}">Créer un nouveau produit</a>
     <thead>
         <th>Nom</th>
         <th>Code</th>
@@ -21,17 +21,17 @@
     {% for prdct in products %}
     <tr>
         
-        <td><a href="{% url 'productItem-detail' prdct.id %}">{{ prdct.name }}</a></td>
+        <td><a href="{% url 'productItem-detail' prdct.id %}">{{ prdct.product.name }}</a></td>
         <td>{{ prdct.code }} </td>
         <td>{{ prdct.color }} </td>
         <td>
-            <a href="{% url 'productItem-update' prdct.id %}">modifier</a>
+            <a href="{% url 'productItem-update' prdct.id %}" class="btn btn-warning mt-2">modifier</a>
         </td>
         <td>
-            <a href="{% url 'productItem-delete' prdct.id %}">delete</a>
+            <a href="{% url 'productItem-delete' prdct.id %}" class="btn btn-danger mt-2">delete</a>
         </td>
 
-    </tr>-
+    </tr>
     {% endfor %}
     </tbody>
     </table>
